@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamo Streaming Hub - Control Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#08080d;--bg2:#0f0f17;--card:#1a1a28;--bdr:#262638;--fg:#e6e6f0;--mt:#7e7e9a;--ac:#e63946;--ac2:#ff6b35;--acg:rgba(230,57,70,.3);--acs:rgba(230,57,70,.08);--gn:#22c55e;--gns:rgba(34,197,94,.1);--bl:#38bdf8;--bls:rgba(56,189,248,.1);--or:#f59e0b;--ors:rgba(245,158,11,.1);--r:12px;--rs:8px}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-bg .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.15;animation:orbFloat 15s ease-in-out infinite}
+.orb-1{width:500px;height:500px;background:var(--ac);top:-15%;right:-10%;animation-delay:0s}
+.orb-2{width:400px;height:400px;background:var(--ac2);bottom:-10%;left:-5%;animation-delay:-5s}
+.orb-3{width:300px;height:300px;background:#8b5cf6;top:40%;left:50%;animation-delay:-10s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.05)}66%{transform:translate(-20px,15px) scale(.95)}}
+.grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(230,57,70,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(230,57,70,.04) 1px,transparent 1px);background-size:60px 60px;z-index:0}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.logo-box{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;margin:0 auto 28px;box-shadow:0 8px 40px var(--acg);animation:logoPulse 3s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 8px 40px var(--acg)}50%{box-shadow:0 8px 60px rgba(230,57,70,.4)}}
+.hero h1{font-size:clamp(32px,6vw,56px);font-weight:900;line-height:1.2;margin-bottom:16px;background:linear-gradient(135deg,var(--fg),var(--mt));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 span{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(14px,2.5vw,18px);color:var(--mt);line-height:1.8;margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:var(--rs);font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:.3s;text-decoration:none}
+.btn-main{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;box-shadow:0 6px 30px var(--acg)}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 10px 40px var(--acg)}
+.btn-sec{background:var(--card);color:var(--fg);border:1px solid var(--bdr)}
+.btn-sec:hover{border-color:var(--ac);transform:translateY(-2px)}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;width:100%;max-width:900px}
+.feat{background:rgba(26,26,40,.6);backdrop-filter:blur(10px);border:1px solid var(--bdr);border-radius:var(--r);padding:28px;text-align:right;transition:.3s}
+.feat:hover{border-color:rgba(230,57,70,.3);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.feat-icon{width:48px;height:48px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px}
+.feat-icon.red{background:var(--acs);color:var(--ac)}
+.feat-icon.green{background:var(--gns);color:var(--gn)}
+.feat-icon.blue{background:var(--bls);color:var(--bl)}
+.feat-icon.orange{background:var(--ors);color:var(--or)}
+.feat h3{font-size:15px;font-weight:700;margin-bottom:8px}
+.feat p{font-size:12px;color:var(--mt);line-height:1.7}
+.footer{text-align:center;padding:40px 20px;color:var(--mt);font-size:12px;position:relative;z-index:1}
+.footer a{color:var(--ac);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.stats-bar{display:flex;gap:40px;justify-content:center;margin-bottom:50px;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-num{font-size:36px;font-weight:900;font-family:'Cairo',sans-serif;background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-lbl{font-size:12px;color:var(--mt);margin-top:4px}
+.divider{width:60px;height:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:2px;margin:0 auto 50px}
+@media(max-width:640px){.features{grid-template-columns:1fr}.stats-bar{gap:24px}.stat-num{font-size:28px}.hero-btns{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="hero-bg">
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+</div>
+<div class="grid-overlay"></div>
+<div class="hero-content">
+<div class="logo-box"><i class="fas fa-play"></i></div>
+<h1>Hamo Streaming Hub<br><span>Control Panel</span></h1>
+<p>لوحة تحكم متكاملة لإدارة القنوات وملفات EPG. أضف، عدّل، واستورد قنوات البث بسهولة مع واجهة عربية احترافية.</p>
+<div class="hero-btns">
+<a href="./Hamo-Control-Panel/" class="btn btn-main"><i class="fas fa-sign-in-alt"></i>دخول لوحة التحكم</a>
+<a href="https://shqawthmw060-sketch.github.io/Hamo-Streaming-Hub/" target="_blank" class="btn btn-sec"><i class="fas fa-play-circle"></i>فتح الموقع</a>
+</div>
+<div class="divider"></div>
+<div class="stats-bar">
+<div class="stat-item"><div class="stat-num">75</div><div class="stat-lbl">ملف EPG</div></div>
+<div class="stat-item"><div class="stat-num">75</div><div class="stat-lbl">دولة مدعومة</div></div>
+<div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl">صفحات</div></div>
+<div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">مجاني</div></div>
+</div>
+<div class="features">
+<div class="feat"><div class="feat-icon red"><i class="fas fa-tv"></i></div><h3>إدارة القنوات</h3><p>إضافة وتعديل وحذف القنوات مع فلاتر متقدمة بالدولة والتصنيف والحالة</p></div>
+<div class="feat"><div class="feat-icon green"><i class="fas fa-file-import"></i></div><h3>استيراد وتصدير</h3><p>استيراد من ملفات M3U و JSON وتصدير البيانات بأي صيغة تريدها</p></div>
+<div class="feat"><div class="feat-icon blue"><i class="fas fa-calendar-alt"></i></div><h3>ملفات EPG</h3><p>75 ملف EPG لجميع الدول مع روابط XML و GZ جاهزة للنسخ</p></div>
+<div class="feat"><div class="feat-icon orange"><i class="fas fa-database"></i></div><h3>تخزين محلي</h3><p>البيانات محفوظة في المتصفح بدون سيرفر ولا قاعدة بيانات</p></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>بنيت بواسطة <a href="#">Hamo</a> &mdash; Hamo Streaming Hub Control Panel</p>
+</div>
+</body>
+                                                                                          </html>
